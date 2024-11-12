@@ -1,31 +1,28 @@
-import os
+from PIL import Image, ImageFilter, ImageEnhance
 import sys
-import pickle
-from bloom_filter2 import BloomFilter
+import os
 
-def create_bloom_filter(filename):
+def apply_bloom_filter(filename):
     # Construct the output filename
     base_name = os.path.splitext(filename)[0]
-    output_filename = f"{base_name}_copyBLOOM"
+    output_filename = f"{base_name}_bloom.jpg"
 
-    # Initialize Bloom filter parameters
-    expected_items = 10000           # Adjust based on your dataset size
-    false_positive_rate = 0.01       # Adjust based on acceptable false positive rate
+    # Open the original image
+    with Image.open(filename) as img:
+        # Step 1: Create a blurred version of the image to simulate bloom
+        blurred_img = img.filter(ImageFilter.GaussianBlur(radius=10))  # Adjust radius for more or less bloom
 
-    # Create a Bloom filter
-    bloom = BloomFilter(max_elements=expected_items, error_rate=false_positive_rate)
+        # Step 2: Enhance brightness of the blurred image
+        enhancer = ImageEnhance.Brightness(blurred_img)
+        bright_blurred_img = enhancer.enhance(1.5)  # Adjust this value to control bloom intensity
 
-    # Read data from the input file and add to the Bloom filter
-    with open(filename, 'r') as infile:
-        for line in infile:
-            item = line.strip()
-            bloom.add(item)
+        # Step 3: Combine the original and bright blurred images
+        bloom_img = Image.blend(img, bright_blurred_img, alpha=0.5)  # Adjust alpha for more or less bloom
 
-    # Serialize and save the Bloom filter to the output file
-    with open(output_filename, 'wb') as outfile:
-        pickle.dump(bloom, outfile)
+        # Save the final image with the bloom effect
+        bloom_img.save(output_filename, "JPEG")
 
-    print(f"Bloom filter created and saved to {output_filename}")
+    print(f"Bloom filter applied and saved to {output_filename}")
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
@@ -33,4 +30,4 @@ if __name__ == "__main__":
         sys.exit(1)
 
     input_file = sys.argv[1]
-    create_bloom_filter(input_file)
+    apply_bloom_filter(input_file)
