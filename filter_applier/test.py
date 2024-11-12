@@ -15,4 +15,8 @@ Requirements:
 2. Feed both models the custom test set
 3. Create an answer sheet .csv file for each model
 4. Compare each models answer to answer key and return each models accuracy on test set
+
+Accuracy criteria:
+1. Modified Dataset must identify original validation set images at or above the level of the original dataset
+2. Modified Dataset must have higher accuracy in images with visual camera affects
 """
