@@ -4,6 +4,9 @@
 
 using namespace std;
 
+// Compile:
+// g++ -std=c++11 -o chromatic_aberration chromatic_aberration.cpp `pkg-config --cflags --libs opencv4`
+
 int main() {
 
     // Load in image
