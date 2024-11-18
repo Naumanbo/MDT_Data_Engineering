@@ -3,17 +3,14 @@ import numpy as np
 import sys
 
 #Type in image name
-print("Image name (e.g. image.jpg): ")
-imgname = input()
-
-# OR: imgname = input("Image name (e.g. image.jpg): ")
+imgname = input("Image name (e.g. image.jpg): ")
 
 #Read image
 img = cv2.imread(imgname)
 
-# if (img.empty()) :
-#     print ("Error opening image")
-#     sys.exit(-1)
+if img is None :
+    print ("Error opening image")
+    sys.exit(-1)
 
 # Split image into RGB channels
 b,g,r = cv2.split(img)

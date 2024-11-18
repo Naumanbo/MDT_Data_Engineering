@@ -31,6 +31,7 @@ int main() {
     cv::warpAffine(channels[0], shifted_blue, cv::Mat::eye(2, 3, CV_32F), img.size(), cv::INTER_LINEAR, cv::BORDER_CONSTANT, cv::Scalar());
     cv::warpAffine(channels[1], shifted_green, cv::Mat::eye(2, 3, CV_32F), img.size(), cv::INTER_LINEAR, cv::BORDER_CONSTANT, cv::Scalar());
     cv::warpAffine(channels[2], shifted_red, cv::Mat::eye(2, 3, CV_32F) + (cv::Mat_<float>(2, 3) << 0, 0, shift_amount, 0, 0, shift_amount), img.size(), cv::INTER_LINEAR, cv::BORDER_CONSTANT, cv::Scalar());
+    
     // Merge the shifted channels back
     std::vector<cv::Mat> merged_channels = {shifted_blue, shifted_green, shifted_red};
     cv::Mat output_image;
