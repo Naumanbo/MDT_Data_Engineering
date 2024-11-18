@@ -24,4 +24,4 @@ if random_num <= 20 :
 # of the filters and apply them repeatedly in that order.
 # Code: 1: Bloom. 2: Blur. 3: Chromatic Aberration. 4: Film Grain.
     
-# Write to modified_directory as we go through all the images (wihtin loop)
+# Write to modified_directory as we go through all the images (within loop)
